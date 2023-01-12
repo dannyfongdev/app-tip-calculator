@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'tip-calculator';
-  billAmount = 0.0;
+  billAmount = 50.0;
   countPeople = 1;
   tipPercent = 15; // store as integer not a fraction
   customTipPercent = 40;

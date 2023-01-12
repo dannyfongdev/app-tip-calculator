@@ -1,4 +1,4 @@
-<main class="flex flex-col max-w-[375px] mx-auto bg-grayishCyan">
+<main class="flex flex-col max-w-[375px] mx-auto shadow p-6">
   <!-- left panel -->
 
   <h1 class="text-center text-darkGrayishCyan text-2xl tracking-[0.4em] py-12">
@@ -6,10 +6,10 @@
   </h1>
   <div class="bg-white">
     <!-- bill -->
-    <div class="flex flex-col">
-      <label for="bill">Bill</label>
+    <div class="flex flex-col  mb-9">
+      <label class="text-darkGrayishCyan mb-1" for="bill">Bill</label>
       <input
-        class="bg-veryLightGrayishCyan text-2xl text-veryDarkCyan px-4 py-2"
+        class="bg-veryLightGrayishCyan text-2xl text-right text-veryDarkCyan px-4 py-2 rounded-md"
         [value]="billAmount"
         (input)="onChangeBill($event)"
         name="bill"
@@ -17,66 +17,82 @@
       />
     </div>
     <!-- select tip % -->
+    <!-- candidate for turning into subcomponent -->
     <div>
-      <h2>Select Tip %</h2>
-      <div>
-        <ul class="grid grid-cols-2">
-          <li [class.bg-yellow-100]="tipPercent == 5">
-            <a (click)="onChangeTip(5)" href="#">5%</a>
+      <h2 class="text-darkGrayishCyan mb-3">Select Tip %</h2>
+      <div class="mb-9">
+        <ul class="grid grid-cols-2 gap-4 text-center text-veryDarkCyan">
+          <li 
+            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer" 
+            [class.bg-veryDarkCyan]="tipPercent != 5" [class.bg-strongCyan]="tipPercent == 5" [class.text-veryDarkCyan]="tipPercent == 5"
+            (click)="onChangeTip(5)"
+          >
+            5%
           </li>
-          <li [class.bg-yellow-100]="tipPercent == 10">
-            <a (click)="onChangeTip(10)" href="#">10%</a>
+          <li 
+            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer"   
+            [class.bg-veryDarkCyan]="tipPercent != 10" [class.bg-strongCyan]="tipPercent == 10" [class.bg-strongCyan]="tipPercent == 10"
+            (click)="onChangeTip(10)"
+          >
+            10%
           </li>
-          <li [class.bg-yellow-100]="tipPercent == 15">
-            <a (click)="onChangeTip(15)" href="#">15%</a>
+          <li 
+            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer" 
+            [class.bg-veryDarkCyan]="tipPercent != 15" [class.bg-strongCyan]="tipPercent == 15" [class.bg-strongCyan]="tipPercent == 15"
+            (click)="onChangeTip(15)"
+          >
+            15%
           </li>
-          <li [class.bg-yellow-100]="tipPercent == 25">
-            <a (click)="onChangeTip(25)" href="#">25%</a>
+          <li 
+            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer" 
+            [class.bg-veryDarkCyan]="tipPercent != 25" [class.bg-strongCyan]="tipPercent == 25" [class.bg-strongCyan]="tipPercent == 25"
+            (click)="onChangeTip(25)"
+          >
+            25%
           </li>
-          <li [class.bg-yellow-100]="tipPercent == 50">
-            <a (click)="onChangeTip(50)" href="#">50%</a>
+          <li 
+            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer" 
+            [class.bg-veryDarkCyan]="tipPercent != 50" [class.bg-strongCyan]="tipPercent == 50"   [class.bg-strongCyan]="tipPercent == 50"
+            (click)="onChangeTip(50)"
+          >
+            50%
           </li>
-          <li *ngIf="!showCustomInput">
-            <a (click)="setShowCustomInput(true)" href="#">Custom</a>
+          <li 
+            *ngIf="!showCustomInput"
+            class="py-2 bg-veryDarkCyan text-white text-2xl rounded-md hover:cursor-pointer" 
+            (click)="setShowCustomInput(true)"
+          >
+            Custom
           </li>
-          <li *ngIf="showCustomInput">
-            <input
+          <input 
+            *ngIf="showCustomInput"
+            class="py-2 text-veryDarkCyan text-right text-2xl pr-3 rounded-md hover:cursor-pointer" 
               [value]="customTipPercent"
               (input)="onChangeCustomTip($event)"
-              type="number"
-            />
-          </li>
+              type="text"
+          />
         </ul>
       </div>
       <!-- number of people -->
-      <div>
-        <label for="count-people">Number of People</label>
+      <div class="mb-9">
+        <label  class="text-darkGrayishCyan mb-1" for="count-people">Number of People</label>
         <input
+          class="bg-veryLightGrayishCyan text-2xl text-right text-veryDarkCyan px-4 py-2 rounded-md"
           [value]="countPeople"
           (input)="onChangePeople($event)"
           name="count-people"
-          type="number"
+          type="text"
         />
       </div>
     </div>
   </div>
   <!-- calculated values -->
-  <div class="p-10 bg-veryDarkCyan rounded-2xl">
-    <div>
-      <div>
-        <h2>Tip Amount</h2>
-        <p>/ person</p>
-      </div>
-      <div>{{ calcTipAmount() }}</div>
-    </div>
-    <div>
-      <div>
-        <h2>Total</h2>
-        <p>/ person</p>
-      </div>
-      <div>{{ calcTotalAmount() }}</div>
-    </div>
-    <button>RESET</button>
+  <app-per-person-card
+    [tipAmount]="calcTipAmount()"
+    [totalAmount]="calcTotalAmount()"
+  />
+  <!-- for debugging -->
+  <div class="hidden p-10 bg-yellow-200">
     <div>People {{ countPeople }}</div>
     <div>Bill Amount {{ billAmount }}</div>
     <div>Tip Percent {{ tipPercent }}%</div>
