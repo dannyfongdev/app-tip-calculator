@@ -1,7 +1,7 @@
 <div>
   <h2 class="text-darkGrayishCyan mb-3">Select Tip %</h2>
-  <div class="mb-9">
-    <ul class="grid grid-cols-2 gap-4 text-center text-veryDarkCyan">
+  <div>
+    <ul class="grid grid-cols-2 gap-4 text-center text-veryDarkCyan md:grid-cols-3">
       <li 
         class="py-2 text-white text-2xl rounded-md hover:cursor-pointer hover:bg-teal-100 hover:text-veryDarkCyan" 
         [class.bg-veryDarkCyan]="tipPercent != 5" [class.bg-strongCyan]="tipPercent == 5" [class.text-veryDarkCyan]="tipPercent == 5"
@@ -39,7 +39,7 @@
       </li>
       <li 
         *ngIf="!showCustomInput"
-        class="py-2 bg-veryDarkCyan text-white text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan" 
+        class="py-2 bg-veryLightGrayishCyan text-darkGrayishCyan text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan" 
         (click)="setShowCustomInput(true)"
       >
         Custom

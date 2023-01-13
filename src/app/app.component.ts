@@ -6,20 +6,28 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  billAmount = 0;
-  countPeople = 1;
+  billAmount: undefined | number;
+  countPeople: undefined | number;
   tipPercent = 15; // store as integer not a fraction
   customTipPercent = 40;
 
   calcTipAmount() {
-    const tip = (this.billAmount * this.tipPercent) / 100 / this.countPeople;
-    return (tip);
+    if (this.billAmount && this.countPeople) {
+      const tip = (this.billAmount * this.tipPercent) / 100 / this.countPeople;
+      return tip;
+    } else {
+      return 0;
+    }
   }
 
   calcTotalAmount() {
-    const tip = (this.billAmount * this.tipPercent) / 100 / this.countPeople;
-    const bill = this.billAmount / this.countPeople;
-    return (bill + tip);
+    if (this.billAmount && this.tipPercent && this.countPeople) {
+      const tip = (this.billAmount * this.tipPercent) / 100 / this.countPeople;
+      const bill = this.billAmount / this.countPeople;
+      return bill + tip;
+    } else {
+      return 0;
+    }
   }
 
   onChangeBill(e: Event) {
@@ -39,10 +47,9 @@ export class AppComponent {
   }
 
   onReset() {
-    this.billAmount = 0;
-    this.countPeople = 1;
+    this.billAmount = undefined;
+    this.countPeople = undefined;
     this.tipPercent = 15; // store as integer not a fraction
     this.customTipPercent = 40;
   }
-
 }

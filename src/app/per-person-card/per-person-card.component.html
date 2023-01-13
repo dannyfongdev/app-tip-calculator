@@ -1,20 +1,21 @@
-<div class="py-10 px-8 bg-veryDarkCyan rounded-2xl">
+<div class="py-10 px-8 bg-veryDarkCyan rounded-2xl w-full">
   <div class="flex justify-between items-center mb-8">
     <div>
       <h2 class="text-white">Tip Amount</h2>
       <p class="text-grayishCyan text-sm">/ person</p>
     </div>
-    <div *ngIf="tipAmount" class="text-strongCyan text-3xl">{{ tipAmount | currency }}</div>
+    <div *ngIf="tipAmount>=0" class="text-strongCyan text-3xl md:text-5xl">{{ tipAmount | currency }}</div>
   </div>
   <div class="flex justify-between items-center mb-8">
     <div>
       <h2 class="text-white">Total</h2>
       <p class="text-grayishCyan text-sm">/ person</p>
     </div>
-    <div *ngIf="totalAmount" class="text-strongCyan text-3xl">{{ totalAmount | currency }}</div>
+    <div *ngIf="totalAmount>=0" class="text-strongCyan text-3xl md:text-5xl">{{ totalAmount | currency }}</div>
   </div>
   <button 
-    class="text-veryDarkCyan text-xl bg-strongCyan w-full py-3 rounded-md hover:bg-teal-100"
+    class="text-veryDarkCyan text-xl bg-strongCyan w-full py-3 rounded-md hover:bg-teal-100 md:mt-24"
+    [ngClass]="{'disabled opacity-25': !tipAmount}"
     (click)="sendReset()"
   >RESET</button>
 </div>

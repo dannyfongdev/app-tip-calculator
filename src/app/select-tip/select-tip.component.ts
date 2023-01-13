@@ -19,7 +19,7 @@ export class SelectTipComponent {
     this.showCustomInput = value;
     // if you show the input, then set tipPercent to custom
     if (value) {
-      this.tipPercent = this.customTipPercent;
+      this.tipPercentChange.emit(this.customTipPercent);
     }
   }
 

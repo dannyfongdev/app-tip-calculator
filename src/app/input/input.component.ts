@@ -9,7 +9,7 @@ export class InputComponent {
   @Input() label = "";
   @Input() iconUrl = "";
 
-  @Input() inputValue = 0;
+  @Input() inputValue: undefined | number;
   @Output() inputValueChange = new EventEmitter<number>();
 
   @Input() zeroIsInvalid = false; // set to true if you want error message for value=0
