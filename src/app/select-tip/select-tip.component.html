@@ -1,0 +1,60 @@
+<div>
+  <h2 class="text-darkGrayishCyan mb-3">Select Tip %</h2>
+  <div class="mb-9">
+    <ul class="grid grid-cols-2 gap-4 text-center text-veryDarkCyan">
+      <li 
+        class="py-2 text-white text-2xl rounded-md hover:cursor-pointer hover:bg-teal-100 hover:text-veryDarkCyan" 
+        [class.bg-veryDarkCyan]="tipPercent != 5" [class.bg-strongCyan]="tipPercent == 5" [class.text-veryDarkCyan]="tipPercent == 5"
+        (click)="onChangeTip(5)"
+      >
+        5%
+      </li>
+      <li 
+        class="py-2 text-white text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan"   
+        [class.bg-veryDarkCyan]="tipPercent != 10" [class.bg-strongCyan]="tipPercent == 10" [class.bg-strongCyan]="tipPercent == 10"
+        (click)="onChangeTip(10)"
+      >
+        10%
+      </li>
+      <li 
+        class="py-2 text-white text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan" 
+        [class.bg-veryDarkCyan]="tipPercent != 15" [class.bg-strongCyan]="tipPercent == 15" [class.bg-strongCyan]="tipPercent == 15"
+        (click)="onChangeTip(15)"
+      >
+        15%
+      </li>
+      <li 
+        class="py-2 text-white text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan" 
+        [class.bg-veryDarkCyan]="tipPercent != 25" [class.bg-strongCyan]="tipPercent == 25" [class.bg-strongCyan]="tipPercent == 25"
+        (click)="onChangeTip(25)"
+      >
+        25%
+      </li>
+      <li 
+        class="py-2 text-white text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan" 
+        [class.bg-veryDarkCyan]="tipPercent != 50" [class.bg-strongCyan]="tipPercent == 50" [class.bg-strongCyan]="tipPercent == 50"
+        (click)="onChangeTip(50)"
+      >
+        50%
+      </li>
+      <li 
+        *ngIf="!showCustomInput"
+        class="py-2 bg-veryDarkCyan text-white text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan" 
+        (click)="setShowCustomInput(true)"
+      >
+        Custom
+      </li>
+      <div *ngIf="showCustomInput" class="flex flex-col">
+        <input 
+        
+        class="py-2 text-veryDarkCyan text-right text-2xl pr-3 rounded-md hover:cursor-pointer" 
+          [value]="customTipPercent"
+          (input)="onChangeCustomTip($event)"
+          type="number"
+          min="0"
+      />
+        <div *ngIf="(customTipPercent < 0)" class="text-orange-600">Can't be negative</div>
+      </div>
+    </ul>
+  </div>
+</div>

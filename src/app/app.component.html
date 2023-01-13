@@ -1,117 +1,79 @@
-<main class="flex flex-col max-w-[375px] mx-auto shadow p-6">
-  <!-- left panel -->
-
-  <h1 class="text-center text-darkGrayishCyan text-2xl tracking-[0.4em] py-12">
-    SPLITTER
-  </h1>
-  <div class="bg-white">
-    <!-- bill -->
-    <div class="flex flex-col  mb-9">
-      <div class="flex justify-between">
-        <label class="text-darkGrayishCyan mb-1" for="bill">Bill</label>
-        <div *ngIf="(billAmount<0)" class="text-orange-600">Can't be negative</div>
-      </div>
-      <input
-        class="bg-veryLightGrayishCyan text-2xl text-right text-veryDarkCyan px-4 py-2 rounded-md"
-        [class.outline-orange-600]="billAmount<0"
-        [value]="billAmount"
-        (input)="onChangeBill($event)"
-        name="bill"
-        type="number"
-        inputmode="decimal" 
-        min="0" 
-        step=".01" 
-      />
-    </div>
-    <!-- select tip % -->
-    <!-- candidate for turning into subcomponent -->
+<header>
+  <div class="bg-lightGrayishCyan text-center text-darkGrayishCyan text-2xl tracking-[0.4em] py-12">
+    <h1>
+      SPLI
+    </h1>
     <div>
-      <h2 class="text-darkGrayishCyan mb-3">Select Tip %</h2>
-      <div class="mb-9">
-        <ul class="grid grid-cols-2 gap-4 text-center text-veryDarkCyan">
-          <li 
-            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer hover:bg-teal-100 hover:text-veryDarkCyan" 
-            [class.bg-veryDarkCyan]="tipPercent != 5" [class.bg-strongCyan]="tipPercent == 5" [class.text-veryDarkCyan]="tipPercent == 5"
-            (click)="onChangeTip(5)"
-          >
-            5%
-          </li>
-          <li 
-            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan"   
-            [class.bg-veryDarkCyan]="tipPercent != 10" [class.bg-strongCyan]="tipPercent == 10" [class.bg-strongCyan]="tipPercent == 10"
-            (click)="onChangeTip(10)"
-          >
-            10%
-          </li>
-          <li 
-            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan" 
-            [class.bg-veryDarkCyan]="tipPercent != 15" [class.bg-strongCyan]="tipPercent == 15" [class.bg-strongCyan]="tipPercent == 15"
-            (click)="onChangeTip(15)"
-          >
-            15%
-          </li>
-          <li 
-            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan" 
-            [class.bg-veryDarkCyan]="tipPercent != 25" [class.bg-strongCyan]="tipPercent == 25" [class.bg-strongCyan]="tipPercent == 25"
-            (click)="onChangeTip(25)"
-          >
-            25%
-          </li>
-          <li 
-            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan" 
-            [class.bg-veryDarkCyan]="tipPercent != 50" [class.bg-strongCyan]="tipPercent == 50"   [class.bg-strongCyan]="tipPercent == 50"
-            (click)="onChangeTip(50)"
-          >
-            50%
-          </li>
-          <li 
-            *ngIf="!showCustomInput"
-            class="py-2 bg-veryDarkCyan text-white text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan" 
-            (click)="setShowCustomInput(true)"
-          >
-            Custom
-          </li>
-          <div *ngIf="showCustomInput" class="flex flex-col">
-            <input 
-            
-            class="py-2 text-veryDarkCyan text-right text-2xl pr-3 rounded-md hover:cursor-pointer" 
-              [value]="customTipPercent"
-              (input)="onChangeCustomTip($event)"
-              type="number"
-              min="0"
+      TTER
+    </div>
+  </div>
+</header>
+<main class="bg-lightGrayishCyan grid md:grid-cols-2">
+  <div class="max-w-[375px] p-6 bg-white md:max-w-[925px]">
+    <div class="bg-white">
+      <!-- bill -->
+      <!-- input field with icon: candidate for refactoring into subcomponent -->
+      <div class="flex flex-col mb-9">
+        <div class="flex justify-between">
+          <label class="text-darkGrayishCyan mb-1" for="bill">Bill</label>
+          <div *ngIf="(billAmount<0)" class="text-orange-600">Can't be negative</div>
+        </div>
+        <div class="relative">
+          <img class="absolute top-4 left-5" src="assets/images/icon-dollar.svg" alt="dollar sign">
+          <input
+            class="bg-veryLightGrayishCyan text-2xl text-right text-veryDarkCyan pl-10 pr-4 py-2 rounded-md w-full"
+            [class.outline-orange-600]="billAmount<0"
+            [value]="billAmount"
+            (input)="onChangeBill($event)"
+            name="bill"
+            type="number"
+            inputmode="decimal" 
+            min="0" 
+            step=".01" 
           />
-            <div *ngIf="(customTipPercent < 0)" class="text-orange-600">Can't be negative</div>
-          </div>
-        </ul>
+        </div>
       </div>
+      <!-- select tip % -->
+      <app-select-tip 
+        [(tipPercent)]="tipPercent" 
+        [customTipPercent]="customTipPercent"
+      />
       <!-- number of people -->
       <div class="mb-9 space-y-1">
         <div class="flex justify-between">
           <label class=" text-darkGrayishCyan mb-1" for="count-people">Number of People</label>
           <div *ngIf="(!countPeople)" class="text-orange-600">Can't be zero</div>
           <div *ngIf="(countPeople<0)" class="text-orange-600">Can't be negative</div>
-      </div>
-        <input
-          class="bg-veryLightGrayishCyan text-2xl text-right text-veryDarkCyan px-4 py-2 rounded-md"
-          [class.outline-orange-600]="!countPeople || countPeople<0"
-          [value]="countPeople"
-          (input)="onChangePeople($event)"
-          name="count-people"
-          type="number"
-        />
+        </div>
+        <div class="relative">
+          <img class="absolute top-4 left-5" src="assets/images/icon-person.svg" alt="dollar sign">
+          <input
+            class="bg-veryLightGrayishCyan text-2xl text-right text-veryDarkCyan pl-10 pr-4 py-2 rounded-md w-full"
+            [class.outline-orange-600]="!countPeople || countPeople<0"
+            [value]="countPeople"
+            (input)="onChangePeople($event)"
+            name="count-people"
+            type="number"
+          />
+        </div>
       </div>
     </div>
   </div>
+  
   <!-- calculated values -->
-  <app-per-person-card
-    [tipAmount]="calcTipAmount()"
-    [totalAmount]="calcTotalAmount()"
-    (resetEvent)="onReset()"
-  />
+  <div class="w-[375px] p-6 bg-white md:max-w-[925px]">
+    <app-per-person-card
+      [tipAmount]="calcTipAmount()"
+      [totalAmount]="calcTotalAmount()"
+      (resetEvent)="onReset()"
+    />
+  </div>
+</main>
+<footer class="block p-10 bg-yellow-200">
   <!-- for debugging -->
-  <div class="block p-10 bg-yellow-200">
+  <div>
     <div>People {{ countPeople }}</div>
     <div>Bill Amount {{ billAmount }}</div>
     <div>Tip Percent {{ tipPercent }}%</div>
   </div>
-</main>
+</footer>

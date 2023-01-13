@@ -3,11 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { PerPersonCardComponent } from './per-person-card/per-person-card.component';
+import { SelectTipComponent } from './select-tip/select-tip.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PerPersonCardComponent
+    PerPersonCardComponent,
+    SelectTipComponent
   ],
   imports: [
     BrowserModule
