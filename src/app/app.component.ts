@@ -24,13 +24,13 @@ export class AppComponent {
 
   calcTipAmount() {
     const tip = (this.billAmount * this.tipPercent) / 100 / this.countPeople;
-    return this.formatCurrency(tip);
+    return (tip);
   }
 
   calcTotalAmount() {
     const tip = (this.billAmount * this.tipPercent) / 100 / this.countPeople;
     const bill = this.billAmount / this.countPeople;
-    return this.formatCurrency(bill + tip);
+    return (bill + tip);
   }
 
   onChangeBill(e: Event) {
@@ -61,6 +61,13 @@ export class AppComponent {
     if (!isNaN(parsedValue)) {
       this.tipPercent = parsedValue;
     }
+  }
+
+  onReset() {
+    this.billAmount = 0;
+    this.countPeople = 1;
+    this.tipPercent = 15; // store as integer not a fraction
+    this.customTipPercent = 40;
   }
 
   formatCurrency(value: number) {

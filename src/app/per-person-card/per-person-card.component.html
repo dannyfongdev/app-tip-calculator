@@ -4,14 +4,17 @@
       <h2 class="text-white">Tip Amount</h2>
       <p class="text-grayishCyan text-sm">/ person</p>
     </div>
-    <div class="text-strongCyan text-3xl">{{ tipAmount }}</div>
+    <div *ngIf="tipAmount" class="text-strongCyan text-3xl">{{ tipAmount | currency }}</div>
   </div>
   <div class="flex justify-between items-center mb-8">
     <div>
       <h2 class="text-white">Total</h2>
       <p class="text-grayishCyan text-sm">/ person</p>
     </div>
-    <div class="text-strongCyan text-3xl">{{ totalAmount }}</div>
+    <div *ngIf="totalAmount" class="text-strongCyan text-3xl">{{ totalAmount | currency }}</div>
   </div>
-  <button class="disabled opacity-25 text-veryDarkCyan text-xl bg-strongCyan w-full py-3 rounded-md">RESET</button>
+  <button 
+    class="text-veryDarkCyan text-xl bg-strongCyan w-full py-3 rounded-md hover:bg-teal-100"
+    (click)="sendReset()"
+  >RESET</button>
 </div>

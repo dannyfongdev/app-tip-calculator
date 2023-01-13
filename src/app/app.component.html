@@ -7,13 +7,20 @@
   <div class="bg-white">
     <!-- bill -->
     <div class="flex flex-col  mb-9">
-      <label class="text-darkGrayishCyan mb-1" for="bill">Bill</label>
+      <div class="flex justify-between">
+        <label class="text-darkGrayishCyan mb-1" for="bill">Bill</label>
+        <div *ngIf="(billAmount<0)" class="text-orange-600">Can't be negative</div>
+      </div>
       <input
         class="bg-veryLightGrayishCyan text-2xl text-right text-veryDarkCyan px-4 py-2 rounded-md"
+        [class.outline-orange-600]="billAmount<0"
         [value]="billAmount"
         (input)="onChangeBill($event)"
         name="bill"
-        type="text"
+        type="number"
+        inputmode="decimal" 
+        min="0" 
+        step=".01" 
       />
     </div>
     <!-- select tip % -->
@@ -23,35 +30,35 @@
       <div class="mb-9">
         <ul class="grid grid-cols-2 gap-4 text-center text-veryDarkCyan">
           <li 
-            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer" 
+            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer hover:bg-teal-100 hover:text-veryDarkCyan" 
             [class.bg-veryDarkCyan]="tipPercent != 5" [class.bg-strongCyan]="tipPercent == 5" [class.text-veryDarkCyan]="tipPercent == 5"
             (click)="onChangeTip(5)"
           >
             5%
           </li>
           <li 
-            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer"   
+            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan"   
             [class.bg-veryDarkCyan]="tipPercent != 10" [class.bg-strongCyan]="tipPercent == 10" [class.bg-strongCyan]="tipPercent == 10"
             (click)="onChangeTip(10)"
           >
             10%
           </li>
           <li 
-            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer" 
+            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan" 
             [class.bg-veryDarkCyan]="tipPercent != 15" [class.bg-strongCyan]="tipPercent == 15" [class.bg-strongCyan]="tipPercent == 15"
             (click)="onChangeTip(15)"
           >
             15%
           </li>
           <li 
-            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer" 
+            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan" 
             [class.bg-veryDarkCyan]="tipPercent != 25" [class.bg-strongCyan]="tipPercent == 25" [class.bg-strongCyan]="tipPercent == 25"
             (click)="onChangeTip(25)"
           >
             25%
           </li>
           <li 
-            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer" 
+            class="py-2 text-white text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan" 
             [class.bg-veryDarkCyan]="tipPercent != 50" [class.bg-strongCyan]="tipPercent == 50"   [class.bg-strongCyan]="tipPercent == 50"
             (click)="onChangeTip(50)"
           >
@@ -59,25 +66,34 @@
           </li>
           <li 
             *ngIf="!showCustomInput"
-            class="py-2 bg-veryDarkCyan text-white text-2xl rounded-md hover:cursor-pointer" 
+            class="py-2 bg-veryDarkCyan text-white text-2xl rounded-md hover:cursor-pointer  hover:bg-teal-100 hover:text-veryDarkCyan" 
             (click)="setShowCustomInput(true)"
           >
             Custom
           </li>
-          <input 
-            *ngIf="showCustomInput"
+          <div *ngIf="showCustomInput" class="flex flex-col">
+            <input 
+            
             class="py-2 text-veryDarkCyan text-right text-2xl pr-3 rounded-md hover:cursor-pointer" 
               [value]="customTipPercent"
               (input)="onChangeCustomTip($event)"
-              type="text"
+              type="number"
+              min="0"
           />
+            <div *ngIf="(customTipPercent < 0)" class="text-orange-600">Can't be negative</div>
+          </div>
         </ul>
       </div>
       <!-- number of people -->
-      <div class="mb-9">
-        <label  class="text-darkGrayishCyan mb-1" for="count-people">Number of People</label>
+      <div class="mb-9 space-y-1">
+        <div class="flex justify-between">
+          <label class=" text-darkGrayishCyan mb-1" for="count-people">Number of People</label>
+          <div *ngIf="(!countPeople)" class="text-orange-600">Can't be zero</div>
+          <div *ngIf="(countPeople<0)" class="text-orange-600">Can't be negative</div>
+      </div>
         <input
           class="bg-veryLightGrayishCyan text-2xl text-right text-veryDarkCyan px-4 py-2 rounded-md"
+          [class.outline-orange-600]="!countPeople || countPeople<0"
           [value]="countPeople"
           (input)="onChangePeople($event)"
           name="count-people"
@@ -90,9 +106,10 @@
   <app-per-person-card
     [tipAmount]="calcTipAmount()"
     [totalAmount]="calcTotalAmount()"
+    (resetEvent)="onReset()"
   />
   <!-- for debugging -->
-  <div class="hidden p-10 bg-yellow-200">
+  <div class="block p-10 bg-yellow-200">
     <div>People {{ countPeople }}</div>
     <div>Bill Amount {{ billAmount }}</div>
     <div>Tip Percent {{ tipPercent }}%</div>
