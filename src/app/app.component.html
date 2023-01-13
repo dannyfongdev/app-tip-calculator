@@ -10,53 +10,28 @@
 </header>
 <main class="bg-lightGrayishCyan grid md:grid-cols-2">
   <div class="max-w-[375px] p-6 bg-white md:max-w-[925px]">
-    <div class="bg-white">
-      <!-- bill -->
-      <!-- input field with icon: candidate for refactoring into subcomponent -->
-      <div class="flex flex-col mb-9">
-        <div class="flex justify-between">
-          <label class="text-darkGrayishCyan mb-1" for="bill">Bill</label>
-          <div *ngIf="(billAmount<0)" class="text-orange-600">Can't be negative</div>
-        </div>
-        <div class="relative">
-          <img class="absolute top-4 left-5" src="assets/images/icon-dollar.svg" alt="dollar sign">
-          <input
-            class="bg-veryLightGrayishCyan text-2xl text-right text-veryDarkCyan pl-10 pr-4 py-2 rounded-md w-full"
-            [class.outline-orange-600]="billAmount<0"
-            [value]="billAmount"
-            (input)="onChangeBill($event)"
-            name="bill"
-            type="number"
-            inputmode="decimal" 
-            min="0" 
-            step=".01" 
-          />
-        </div>
-      </div>
+    <div class="bg-white flex flex-col mb-9">
+      <!-- bill input -->
+      <app-input 
+        [label]=" 'Bill' "
+        [(inputValue)]="billAmount"
+        [iconUrl]=" 'assets/images/icon-dollar.svg' "
+        [isCurrency]="true"
+      />
+      
       <!-- select tip % -->
       <app-select-tip 
         [(tipPercent)]="tipPercent" 
         [customTipPercent]="customTipPercent"
       />
+
       <!-- number of people -->
-      <div class="mb-9 space-y-1">
-        <div class="flex justify-between">
-          <label class=" text-darkGrayishCyan mb-1" for="count-people">Number of People</label>
-          <div *ngIf="(!countPeople)" class="text-orange-600">Can't be zero</div>
-          <div *ngIf="(countPeople<0)" class="text-orange-600">Can't be negative</div>
-        </div>
-        <div class="relative">
-          <img class="absolute top-4 left-5" src="assets/images/icon-person.svg" alt="dollar sign">
-          <input
-            class="bg-veryLightGrayishCyan text-2xl text-right text-veryDarkCyan pl-10 pr-4 py-2 rounded-md w-full"
-            [class.outline-orange-600]="!countPeople || countPeople<0"
-            [value]="countPeople"
-            (input)="onChangePeople($event)"
-            name="count-people"
-            type="number"
-          />
-        </div>
-      </div>
+      <app-input 
+        [label]=" 'Number of People' "
+        [(inputValue)]="countPeople"
+        [iconUrl]=" 'assets/images/icon-person.svg' "
+        [zeroIsInvalid]="true"
+      />
     </div>
   </div>
   
